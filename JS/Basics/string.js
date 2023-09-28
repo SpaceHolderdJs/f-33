@@ -54,3 +54,72 @@ const sol3 = function (str, strToChange, strToAdd) {
 };
 
 console.log(sol3("Hello", "o", ":)"));
+
+const str4 = "Hello";
+const sent = "Lorem ipsum dolor";
+
+console.log(str4.includes("$"), "includes");
+console.log(sent.includes(" "));
+console.log("hello".includes("hello"), "!!!", "hello" === "hello");
+
+const sol5 = function (str) {
+  const notAllowedWord = "!";
+  // написати перевірку, що поверне true якщо у str є заборонене слово та false якщо немає
+  if (str.includes(notAllowedWord)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+// const fn = function (a) {
+//   const res = a - 10;
+//   return res;
+// };
+
+// fn(10);
+
+const sayHelloTo = function (name) {
+  const str = `Hello, ${name} have a good day`; // Interpolation
+
+  console.log(str, str.length);
+
+  return str;
+};
+
+sayHelloTo("Igor");
+sayHelloTo("Arsen");
+sayHelloTo("Maya");
+
+const string1 = new String("Hello"); // old way of creation
+console.log(string1);
+
+const str6 = "Web Development";
+
+let eSymbols = "";
+
+// 2016+
+for (const symb of str6) {
+  if (symb === "e") {
+    eSymbols = eSymbols.concat(symb);
+  }
+}
+
+// // > 2016+
+// for (let i = 0, k = 0; i < arr.length; i++, k *= 10) {
+//   // arr[i] - element
+// }
+
+console.log(eSymbols.length, "eSymbols");
+
+const str7 = "Lorem ipum dolor ament";
+
+// Обійдіть циклом for-of строку, виводячи кожну її літеру
+
+// 1. Дано строку let str1 = "12345" порахуйте суму цифр строки
+// 2. Дано строку let str2 = "Hello world", вставте замість пробілу "<>"
+
+// const sol6 = (str) => str.split("").reduce((acc, e) => (acc += +e), 0);
+// const sol7 = (str) => str.replace(" ", "<>");
+
+// console.log(sol6("12345"), sol7("Hello world"), "split");
