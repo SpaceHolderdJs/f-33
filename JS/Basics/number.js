@@ -68,3 +68,26 @@ console.log(a <= 10); // =>
 // 4. Дано
 // const str = "Hello World I am here";
 // Порахуйте кількість пробілів
+
+const funS = function (a = 10) {
+  const step = Math.pow(a, 2);
+
+  return step;
+};
+
+console.log(funS(), "step");
+
+const n1 = 100;
+const n2 = 999;
+const price = 10.536636363;
+
+console.log(n1.toString(), "string");
+console.log(n2.toString(), "string2");
+
+console.log(price.toFixed(2).concat(" $"), "toFixed");
+
+// Написати функцію що приймає сумму (не ціле число)
+// та валютний символ і повертає оптимізовану ціну продукту
+// з 3 знаками після коми та валютою
+
+// sol1(88.12345, "$") => "88.123 $"
