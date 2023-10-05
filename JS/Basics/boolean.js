@@ -12,8 +12,8 @@ console.log(Boolean(""), "empty string");
 console.log(Boolean(null), "null");
 console.log(Boolean(undefined), "undefined");
 console.log(Boolean(false), "false");
-console.log(Boolean("false"), "false as string");
 // not-falsy
+console.log(Boolean("false"), "false as string");
 console.log(Boolean([]), "empty array");
 console.log(Boolean({}), "empty obj");
 
