@@ -152,3 +152,190 @@ const cart = {
 
 // напишіть функцію що рахує та виводить суму цін всіх товарів
 // for-in
+
+const object = {
+  name: "Ann",
+  age: 19,
+  city: "Kyiv",
+  bool: true,
+};
+
+// порахуйте загальну довжину всіх значень обє`кта, що є строкою (string) => 7
+// for-in
+// typeof
+
+function sol2(obj) {
+  let length = 0;
+
+  for (const key in obj) {
+    // if (typeof obj[key] === "string") {
+    //   length = length + obj[key].length;
+    // }
+
+    // typeof obj[key] === "string" && (length = length + obj[key].length);
+    if (typeof obj[key] === "string") length = length + obj[key].length;
+  }
+
+  console.log(length, "length");
+  return length;
+}
+
+sol2(object);
+
+console.log(typeof "AAAAAAAAA");
+
+const str2 = "Hello";
+
+str2.toUpperCase(); // виклик методу примітива
+
+const data = {
+  length: 10,
+  width: 20,
+  height: 23,
+};
+
+console.log(Object.keys(data), "keys");
+console.log(Object.values(data), "value");
+
+console.log(Object.values(data).reduce((acc, el) => (acc += el), 0));
+
+let sum = 0;
+
+for (const key in data) {
+  sum = sum + data[key];
+}
+
+console.log(sum, "!!!");
+
+// Завдання:
+// порахуйсте суму всіх полів data
+// for-in
+
+const data2 = {
+  length: 10,
+  width: 20,
+  height: 23,
+  password: "389ndsjdnjdj3nd3j!3$",
+};
+
+console.log(data2.width);
+console.log(data2, "before");
+
+delete data2.password; // - видалення
+delete data2.height;
+
+data2.width = data2.width / 10; // - зміна значення
+data2.height = data2.width;
+
+data2.newData = "New Data"; // - додавання нових значень
+
+console.log(data2, "after");
+
+// Завдання:
+// напишіть функцію що видаляє всі поля об'єкта
+
+// Завдання:
+// порахуйте кількість кожного символу строки
+const message = "Hello, qwqwqq,wqwqwqwq,wqwqq, aak, ooo";
+const messageData = {};
+
+for (const letter of message) {
+  if (messageData[letter]) {
+    messageData[letter]++;
+  } else {
+    messageData[letter] = 1;
+  }
+}
+
+console.log(messageData, "message Data");
+
+// Завдання: напишіть функцію що повертає true якщо у реченні присутні коми
+
+const obj10 = {
+  str: "Olena", // true
+  str2: "", // falsy
+  n: 5, // true
+  n2: 0, // falsy
+  // hello: "Hello"
+};
+
+console.log(Boolean(obj10.str), "Olena");
+console.log(Boolean(obj10.str2), "Empty str");
+console.log(Boolean(obj10.n), "5");
+console.log(Boolean(obj10.n2), "0");
+console.log(Boolean(obj10.hello), obj10.hello, "hello");
+
+console.log("!!!", obj10[","]);
+console.log(Boolean(null), "bool5");
+
+function fu(messageData) {
+  // if (messageData[","]) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+
+  return Boolean(messageData[","]);
+}
+console.log(fu(messageData));
+
+// Завдання: напишіть функцію що поверає кількість літер q (messageData)
+
+// Завдання: напишіть функцію
+// що повертає попередження якщо у messageData є більше ніж 3 літери w
+
+// Завдання: напишіть функцію що рахує загальну кількість всіх символів (for-in, messageData)
+
+function Total(messageData) {
+  let total = 0;
+
+  for (let key in messageData) {
+    total = total + messageData[key];
+
+    console.log(messageData[key], "number");
+  }
+
+  console.log(total, "total");
+  return total;
+}
+
+Total(messageData);
+
+const obj5 = {};
+
+const room = {
+  chair: 1,
+  table: 1,
+  carpet: "2",
+};
+
+console.log(room["table"] + room.chair + +room["carpet"]);
+
+function name(n) {
+  return `Name ${n}`;
+}
+
+console.log(name("Igor"));
+
+for (let i = 0; i < 10; i = i + 2) {
+  console.log(i);
+}
+
+const d = {
+  s: {
+    value: 100,
+    m: "cm2",
+  },
+  p: { value: 150, m: "cm" },
+  p: { value: 150, m: "cm" },
+  p: { value: 150, m: "cm" },
+};
+
+for (const data in d) {
+}
+
+const name = "";
+a;
+b;
+name;
+value;
