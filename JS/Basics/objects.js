@@ -334,8 +334,16 @@ const d = {
 for (const data in d) {
 }
 
-const name = "";
-a;
-b;
-name;
-value;
+const data3 = {
+  a: 10,
+  b: 20,
+};
+
+function sol1(data) {
+  return {
+    p: data["a"] * 2 + data["b"] * 2,
+    s: data.a * data.b,
+  };
+}
+
+console.log(sol1(data3), "!!!!!");
