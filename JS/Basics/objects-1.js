@@ -180,3 +180,48 @@ function sum(obj5) {
 }
 console.log(sum(obj5));
 sum({ a: { x: 10 } });
+
+// const data5 = { a: 10, b: 50, c: 53 };
+// const dataToRemove = { a: 0, b: "Hello" };
+
+// function without(data, dataToRemove) {
+//   for (const key in dataToRemove) {
+//     console.log(key, "KEY");
+//     delete data[key];
+//   }
+
+//   return data;
+// }
+
+// const res = without(data5, dataToRemove);
+// console.log(res, "RESULT");
+
+const data6 = {
+  age: 23,
+  name: "Arsenii",
+  // a: null,
+  city: "Kyiv",
+  // geo: null,
+  // phonenumber: null,
+};
+
+const dataToRemove = { age: "Hello", city: "111", name: "n" };
+
+function without(data, dataToRemove) {
+  // for (const key in data) {
+  //   if (data[key] === null) {
+  //     delete data[key];
+  //   }
+  // }
+  // return data;
+
+  for (const key in data) {
+    if (dataToRemove[key] === null) {
+      delete data[key];
+    }
+  }
+
+  return data;
+}
+
+console.log(without(data6, dataToRemove), "===>sol1");
