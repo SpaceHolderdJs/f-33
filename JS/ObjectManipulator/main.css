@@ -1,0 +1,22 @@
+* {
+    font-size: 30px;
+}
+
+#object-preview {
+    background: lightgrey;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+    font-size: 35px;
+}
+
+.key {
+    color: brown;
+    font-weight: 700;
+    margin-left: 30px;
+}
+
+.value {
+    color: blueviolet;
+    font-weight: 300;
+}
