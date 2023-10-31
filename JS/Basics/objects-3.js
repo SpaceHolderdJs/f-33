@@ -107,3 +107,16 @@ function sol3(stratDate, endDate, obj) {
 }
 
 sol3("02.07.2020", "04.07.2020", likes);
+
+function sol4(dates) {
+  let sum = 0;
+
+  for (const date in dates) {
+    const dateNumber = +date.slice(0, 2);
+    sum = sum + dateNumber;
+  }
+
+  return sum;
+}
+
+console.log(sol4(likes), "result");
