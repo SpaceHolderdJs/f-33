@@ -179,3 +179,30 @@ const arrOfNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const reversedArray = arrOfNumbers.reverse(); // перегортає масив (зворотній напрямок)
 
 console.log(reversedArray, "reversedArray");
+
+// Дано масив const arr = [10, 7, 44, 29, 5, 3, 101]; порахуйте суму чисел масива, що більші за 10
+
+const arr = [10, 7, 44, 29, 5, 3, 101];
+
+function sol1(arr) {
+  let sum = 0;
+
+  for (const element of arr) {
+    if (element > 10) {
+      sum += element;
+    }
+  }
+
+  console.log(sum, "SUM");
+  return sum;
+}
+
+sol1(arr);
+
+const arr2 = [{ b: 3 }, { b: 2 }, { b: 1 }];
+
+function sol2(arr) {
+  return arr.reverse();
+}
+
+console.log(sol2(arr2), "sol2");
