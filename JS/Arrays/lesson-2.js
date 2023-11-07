@@ -181,3 +181,61 @@ const coords2 = [10, 15, 3];
 const [x, y, z] = coords2;
 
 console.log(x, y, z);
+
+const arr = ["Ann", "Oleg", "Viktor"];
+// напишіть функцію що повертає найдовше ім`я
+
+function sol1(arr) {
+  let maxLengthName = arr[0];
+
+  for (const name of arr) {
+    if (name.length > maxLengthName.length) {
+      maxLengthName = name;
+    }
+  }
+
+  console.log(maxLengthName, "maxLengthName");
+  return maxLengthName;
+}
+
+sol1(arr);
+
+const points = [
+  [1, 5],
+  [6, 3],
+  [2, 5],
+];
+
+// Напишіть функцію що приймає 2 аргументи - масив та літеру "x" або "y"
+// Функція має повернути найбільшу точку обраної осі
+
+// sol1(points, "y") => [1,5]
+// sol1(points, "x") => [6,2]
+
+function sol2(points, pointAxis) {
+  let maxPoint = points[0];
+
+  for (const point of points) {
+    const [x, y] = point; // destructing of array
+
+    if (pointAxis === "x") {
+      if (maxPoint[0] < x) maxPoint = point;
+    }
+
+    if (pointAxis === "y") {
+      if (maxPoint[1] < y) maxPoint = point;
+    }
+
+    // if (maxPoint[pointAxis === "x" ? 0 : 1] < (pointAxis === "x" ? x : y)) {
+    //   maxPoint = point;
+    // }
+
+    // console.log(point, "POINT", x, y);
+  }
+
+  console.log(`Max point by ${pointAxis} `, maxPoint);
+  return maxPoint;
+}
+
+sol2(points, "x");
+sol2(points, "y");
