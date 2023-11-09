@@ -133,3 +133,82 @@ console.log(adlutUsersFromKyiv, "adlutUsersFromKyiv");
 
 const undefinedUser = users.find((user) => user.id === 100);
 console.log(undefinedUser, "undefinedUser");
+
+const users2 = [
+  {
+    id: 1,
+    name: "John Doe",
+    age: 28,
+    email: "john.doe@example.com",
+    city: "New York",
+    salary: 55000,
+  },
+  {
+    id: 2,
+    name: "Alice Smith",
+    age: 22,
+    email: "alice.smith@example.com",
+    city: "Los Angeles",
+    salary: 48000,
+  },
+  {
+    id: 3,
+    name: "Robert Johnson",
+    age: 32,
+    email: "robert.johnson@example.com",
+    city: "Chicago",
+    salary: 62000,
+  },
+  {
+    id: 4,
+    name: "Emily Wilson",
+    age: 25,
+    email: "emily.wilson@example.com",
+    city: "San Francisco",
+    salary: 58000,
+  },
+  {
+    id: 5,
+    name: "Michael Brown",
+    age: 30,
+    email: "michael.brown@example.com",
+    city: "Miami",
+    salary: 60000,
+  },
+];
+
+// 1. Трансформуйте дані, так щоб кожен user мав лише поля `id`, `age`, `name` (map)
+// 2. В усіх користувачів день народження 🎉, додайте кожному по 1 року (map)
+// 3. Додайте кожному користувачеві поле `birthYear` - рік його народження (залежно від віку) (map)
+// 4. Знайдіть користувача з Miami (find)
+
+const transformedUsers2 = users2.map((user) => {
+  const { id, age, name } = user;
+
+  const result = { id, age, name };
+
+  return result;
+});
+
+console.log(transformedUsers2, "#1");
+
+const birthdayUsers = users2.map((user) => {
+  user.age = user.age + 1;
+  return user;
+});
+
+console.log(birthdayUsers, "#2");
+
+const birthYearUsers = users2.map((user) => {
+  user.birthYear = 2023 - user.age;
+  return user;
+});
+
+const birthdayUsers2 = users2.map((user) => ({
+  ...user,
+  birthYear: 2023 - user.age,
+}));
+
+const userFromMiami = users2.find((user) => user.city === "Miami");
+
+console.log(userFromMiami, "#4");
