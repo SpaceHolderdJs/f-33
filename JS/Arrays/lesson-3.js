@@ -212,3 +212,52 @@ const birthdayUsers2 = users2.map((user) => ({
 const userFromMiami = users2.find((user) => user.city === "Miami");
 
 console.log(userFromMiami, "#4");
+
+function findSum(arr, k) {
+  let result = null;
+  arr.forEach((n, i) => {
+    console.log(n);
+    const pair = arr.find((pairNumber) => k - n === pairNumber);
+
+    if (pair) {
+      result = [n, pair];
+    }
+  });
+
+  console.log(result, "RESULT");
+  return result;
+}
+
+// O(n * n) = O(n^2)
+// O(n) 25
+
+findSum([1, 2, 3, 4, 5], 6);
+// => [1, 5]; [2, 4]
+
+function findSum2(arr, k) {
+  const hashMap = {};
+
+  arr.forEach((n) => {
+    // a + b = k
+    // a = k - b
+
+    hashMap[k - n] = n;
+    //       a       b
+  });
+
+  console.log(hashMap, "MAP");
+
+  for (const element of arr) {
+    if (hashMap[element]) {
+      return [element, hashMap[element]];
+    }
+  }
+
+  return null;
+}
+
+// O(2 * n)
+// 10
+
+const result = findSum2([1, 2, 3, 4, 5], 6);
+console.log(result, "RESULT");

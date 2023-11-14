@@ -9,11 +9,11 @@ function generateUser() {
     location: faker.location.country(),
     salary: faker.number.int({ min: 500, max: 5000 }),
     technologies: faker.helpers.arrayElements([
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "React",
-      "Angular",
+      "js",
+      "html",
+      "css",
+      "react",
+      "angular",
     ]),
     pictureURL: faker.image.avatar(),
   };
@@ -61,10 +61,10 @@ searchButton.onclick = () => {
 function renderUsers(users) {
   usersWrapper.innerHTML = "";
 
-  users.forEach((user) => {
+  users.forEach((user, i) => {
     const { fullname, city, location, pictureURL, salary, technologies } = user;
     usersWrapper.innerHTML += `
-        <div class="user-item">
+        <div class="user-item" id="user-${i}">
             <img alt="${fullname}" src="${pictureURL}" class="user-avatar" />
             <div>
                 <h3>${fullname}</h3>
@@ -72,10 +72,33 @@ function renderUsers(users) {
                 <span>${location}, ${city}</span>
             </div>
             <div class="technologies">${technologies
-              .map((tech) => `<span>${tech}</span>`)
-              .join("")}</div>
+              .map((tech) => `<img width="25" src="./assets/${tech}.svg" />`)
+              .join("")}
+            </div>
         </div>
     `;
+    // <button class="delete-user-button" id="delete-user-${i}">Delete</button>
+    // const deleteButton = document.getElementById(`delete-user-${i}`);
+
+    setTimeout(() => {
+      const deleteButton = document.createElement("button");
+
+      console.log(deleteButton, "deleteButton");
+
+      deleteButton.textContent = "Delete";
+
+      deleteButton.onclick = () => {
+        console.log(`Delete user:`, user);
+
+        // HW
+        const result = USERS.filter();
+
+        renderUsers(result);
+      };
+
+      const userElement = document.getElementById(`user-${i}`);
+      userElement.appendChild(deleteButton);
+    }, 1000);
   });
 }
 
