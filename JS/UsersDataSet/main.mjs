@@ -8,6 +8,7 @@ function generateUser() {
     city: faker.location.city(),
     location: faker.location.country(),
     salary: faker.number.int({ min: 500, max: 5000 }),
+    age: faker.number.int({ min: 7, max: 70 }),
     technologies: faker.helpers.arrayElements([
       "js",
       "html",
@@ -39,6 +40,22 @@ const searchButton = document.getElementById("search-button");
 
 const usersWrapper = document.getElementById("users-wrapper");
 
+const sortBySalaryCheckbox = document.getElementById("sort-by-salary");
+
+sortBySalaryCheckbox.onchange = () => {
+  if (sortBySalaryCheckbox.checked) {
+    const usersToSort = [...USERS];
+
+    const sortedUsers = usersToSort.sort(
+      (user1, user2) => user1.salary - user2.salary
+    );
+
+    renderUsers(sortedUsers);
+  } else {
+    renderUsers(USERS);
+  }
+};
+
 let searchResults = null;
 
 searchButton.onclick = () => {
@@ -62,12 +79,13 @@ function renderUsers(users) {
   usersWrapper.innerHTML = "";
 
   users.forEach((user, i) => {
-    const { fullname, city, location, pictureURL, salary, technologies } = user;
+    const { fullname, city, location, pictureURL, salary, technologies, age } =
+      user;
     usersWrapper.innerHTML += `
         <div class="user-item" id="user-${i}">
             <img alt="${fullname}" src="${pictureURL}" class="user-avatar" />
             <div>
-                <h3>${fullname}</h3>
+                <h3>${fullname}, <span class="blue">${age}</span></h3>
                 <h4>${salary} $</h4>
                 <span>${location}, ${city}</span>
             </div>
@@ -90,8 +108,7 @@ function renderUsers(users) {
       deleteButton.onclick = () => {
         console.log(`Delete user:`, user);
 
-        // HW
-        const result = USERS.filter();
+        const result = USERS.filter((u) => user.fullname !== u.fullname);
 
         renderUsers(result);
       };

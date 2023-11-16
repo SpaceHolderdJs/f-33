@@ -120,15 +120,69 @@ const coords = arr7.reduce((acc, el) => {
 
 console.log(coords, "coords");
 
-const acc = [];
+// const acc = [];
 
-acc.push("1");
-for (let i = 0; i < arr7.length; i++) {
-  sum += 0;
-}
+// acc.push("1");
+// for (let i = 0; i < arr7.length; i++) {
+//   sum += 0;
+// }
 
-console.log(sum);
+// console.log(sum);
 
 [].reduce((acc, e) => {
   return acc + e;
 }, 0);
+
+const arr10 = [{ x: 10 }, { x: 20 }, { x: 12 }, { x: 7 }];
+
+const sum10 = arr10.reduce((sum, obj) => {
+  return sum + obj.x;
+}, 0);
+
+console.log(sum10, "SUM!");
+
+console.log(
+  [1, 2, 3, 4].reduce((acc, e) => acc + e, 0),
+  "REDUCE"
+);
+
+const arr11 = [1, 2, 3, 4, 5];
+// [”x”, “xx”, “xxx”, “xxxx”, “xxxxx”]
+
+const result2 = arr11.map((n) => {
+  let str = "";
+
+  for (let i = 0; i < n; i++) {
+    str += "x";
+  }
+
+  return str;
+});
+
+console.log(result2, "result2");
+
+Array.prototype.myReduce = function (callback, acc) {
+  let finalAcc = acc;
+
+  for (let i = 0; i < this.length; i++) {
+    finalAcc = callback(finalAcc, this[i], i, this);
+  }
+
+  return finalAcc;
+};
+
+const arr12 = [1, 2, 3, 4, 5].myReduce((acc, e, i, arr) => acc + e, 0);
+console.log(arr12, "FIRST RESULT");
+const arr13 = [1, 2, 3, 4, 5].myReduce((acc, e, i, arr) => (acc += e), 0);
+console.log(arr13, "SECOND RESULT");
+const arr14 = [{ x: 10 }, { x: 20 }, { x: 30 }].myReduce(
+  (acc, { x }) => acc + x,
+  0
+);
+console.log(arr14, "THIRD RESULT");
+
+const arr15 = [{ x: 10 }, { x: 20 }, { x: 30 }].myReduce((acc, el) => {
+  return [...acc, el.x];
+}, []);
+
+console.log(arr15, "FOURTH RESULT");

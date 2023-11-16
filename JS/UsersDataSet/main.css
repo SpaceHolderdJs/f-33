@@ -56,3 +56,20 @@ main .input-wrapper {
     flex-direction: column;
     gap: 10px;
 }
+
+.sort-wrapper input {
+    width: 25px;
+    height: 25px;
+}
+
+.sort-wrapper label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.blue {
+    color: blueviolet
+}
