@@ -171,3 +171,65 @@ console.log(fruits, "fruits", removedFruits);
 // const numbers = [10, 1, 20, 2, 30, 3]; => [10, 20, 30]
 
 // Приберіть всі числа з довжиною 1 (1,2,3)
+
+// [10, 1, 20, 2, 30, 3].forEach((el, i, arr) => {
+//   if (el.toString().length === 1) {
+//     numbers.splice(i, 1);
+//   }
+// });
+
+const elements = [
+  ["x", "xx", "xxx"],
+  ["xx", "xxx", "xxxx"],
+  ["x", "x", "x"],
+];
+
+console.log(
+  elements.reduceRight((acc, arr, i) => {
+    const reversedSubArray = [...arr].reverse(); // mutable
+    console.log(reversedSubArray, "reversed array");
+    acc.push(reversedSubArray);
+
+    console.log(acc, "ACC RESULT", i);
+
+    return acc;
+  }, []),
+  "result"
+);
+
+console.log(
+  elements.reduceRight((acc, arr) => [...acc, [...arr].reverse()], []),
+  "result2"
+);
+
+// Поміняйте місцями числа 3 та 4 у масиві (splice)
+const arr22 = [1, 2, 3, 4, 5, 6];
+const removedElements = arr22.splice(2, 2).reverse();
+const [el1, el2] = removedElements;
+arr22.splice(2, 0, el1, el2);
+
+console.log(arr22, "result");
+
+// Напишіть функцію що повертає true якщо строка однаково читається з ліва на право та з право на ліво
+// (”ded” читається однаково з 2 сторін, також наприклад слово “oko” та подібні)
+
+const str = "dederetet";
+
+const fn = (str) => str.split("").reverse().join("") === str;
+
+console.log(fn(str), "result palindrom");
+
+const data = [
+  { id: 1, name: "John", age: 25 },
+  { id: 2, name: "Alice", age: 30 },
+  { id: 3, name: "Bob", age: 22 },
+];
+
+data.sort(
+  (person1, person2) =>
+    person1.id - person2.id ||
+    person1.name.localeCompare(person2.name) ||
+    person1.age - person2.age
+);
+
+console.log(data, "sort result");

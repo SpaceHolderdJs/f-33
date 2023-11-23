@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            background: black;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+        }
+        
+        @keyframes stars-animation {
+            from {
+                transform: rotateZ(0deg);
+            }
+
+            to {
+                transform: rotateZ(360deg); 
+            }
+        }
+
+        #stars-mover {
+            width: 100vw;
+            height: 100vh;
+            animation: 10s linear infinite stars-animation;
+        } 
+    </style>
+</head>
+<body>
+    <section id="space" style="background: black; width: 100vw; height: 100vh; position: relative;">
+        <div id="stars-mover"></div>
+    </section>
+    <script src="./lesson-1.js"></script>
+</body>
+</html>
