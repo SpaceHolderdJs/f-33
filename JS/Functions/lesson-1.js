@@ -136,6 +136,10 @@ function Star(x, y, color) {
   this.y = y;
   this.color = color;
 
+  this.hide = function () {
+    this.element.style.setProperty("display", "none");
+  };
+
   this.render = function (parent) {
     const star = document.createElement("div");
     star.classList.add("star");
@@ -171,6 +175,7 @@ function generateStars(quantity = 500) {
 
     const star = new Star(x, y, randomStarColor);
     star.render(starsMover);
+    // star.hide();
   }
 }
 
