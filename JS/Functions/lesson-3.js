@@ -207,3 +207,62 @@ console.log(
     return a + b;
   })(10, 20)
 );
+
+function Car(brand, model) {
+  this.brand = brand;
+  this.model = model;
+
+  this.showCar = function () {
+    console.table(this);
+  };
+
+  return this;
+}
+
+Car.prototype.showCar = function () {
+  console.table(this);
+};
+
+function Animal(breed, color) {
+  this.breed = breed;
+  this.color = color;
+
+  this.isMadeByAnimal = function () {
+    return Boolean(this.color);
+  };
+
+  return this;
+}
+
+Animal.prototype.isMadeByAnimal = function () {
+  return Boolean(this.color);
+};
+
+Car.prototype = Animal.prototype;
+
+const audiCar = new Car("Audi", "A4");
+const catAnimal = new Animal("Cat", "white");
+
+catAnimal.showCar = audiCar.showCar.bind(catAnimal);
+
+// console.log(audiCar.brand);
+// console.log(audiCar.color);
+audiCar.showCar();
+console.log(audiCar.isMadeByAnimal());
+catAnimal.isMadeByAnimal();
+console.log(catAnimal.breed);
+console.log(catAnimal.color);
+catAnimal.isMadeByAnimal();
+console.log(catAnimal.isMadeByAnimal());
+catAnimal.showCar(); //почему здесь выдает ошибку?
+
+function abc(bool) {
+  console.log(bool);
+}
+
+const fn10 = abc;
+11 > 10 ? console.log("QQQQ") : console.log("!!!!");
+
+this.a += 1;
+this.a++;
+this.a = this.a + 1;
