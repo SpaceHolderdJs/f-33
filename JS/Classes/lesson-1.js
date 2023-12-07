@@ -86,21 +86,41 @@ class FormField {
 }
 
 class FormBuilder {
-  constructor(fields, onSubmit) {
+  constructor(fields, onSubmit, onErrors) {
     this.fields = fields;
     this.onSubmit = onSubmit;
+    this.onErrors = onErrors;
 
     this.values = {};
     this.inputs = {};
+    this.errors = {};
 
     this.generateFormValues();
+  }
+
+  validateFields() {
+    this.errors = {};
+
+    for (const field of this.fields) {
+      if (!field.required) {
+        this.errors[field.name] = false;
+        continue;
+      }
+
+      this.errors[field.name] = !(!field.validate
+        ? true
+        : field.validate(this.values[field.name]));
+    }
+
+    return Object.values(this.errors).some((result) => result === true)
+      ? this.errors
+      : null;
   }
 
   generateFormValues() {
     this.values = {};
 
     for (const field of this.fields) {
-      console.log(field, "this is field");
       this.values[field.name] = "";
     }
 
@@ -145,8 +165,10 @@ class FormBuilder {
       this.values[name] = this.inputs[name].value;
     }
 
-    // outer function
-    this.onSubmit(this.values);
+    const errors = this.validateFields();
+
+    // outer functions
+    errors ? this.onErrors(this.errors) : this.onSubmit(this.values);
   }
 
   showFormData() {
@@ -156,12 +178,22 @@ class FormBuilder {
 
 const loginForm = new FormBuilder(
   [
-    new FormField("email", "Enter the email", true),
-    new FormField("name", "Enter the name", true),
-    new FormField("password", "Enter the password", true),
+    new FormField("email", "Enter the email", true, (email) =>
+      email.includes("@")
+    ),
+    new FormField("name", "Enter the name", false, (name) => name.length > 2),
+    new FormField(
+      "password",
+      "Enter the password",
+      true,
+      (password) => password.length > 5
+    ),
   ],
   function (formData) {
     console.log(formData, "FORM DATA FROM YOUR FUNCTION");
+  },
+  function (errorsData) {
+    console.log(errorsData, "FORM ERRORS, YOUR FUNCTION");
   }
 );
 
