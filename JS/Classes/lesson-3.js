@@ -186,3 +186,23 @@ const obj = {
 };
 
 console.log(obj["get x"]());
+
+class A {
+  constructor(a) {
+    this.a = a;
+  }
+
+  get a() {
+    return this._a;
+  }
+
+  set a(newA) {
+    this._a = newA + 1;
+  }
+}
+const a = new A(10);
+console.log(a.a, "a");
+
+a.a = 100;
+
+console.log(a);
