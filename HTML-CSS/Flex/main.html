@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flex layouts</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Flex (basics directions)</h1>
+
+      <div class="squares">
+        <div class="square">1</div>
+        <div class="square">2</div>
+        <div class="square">3</div>
+      </div>
+
+      <div class="squares row-reverse">
+        <div class="square">1</div>
+        <div class="square">2</div>
+        <div class="square">3</div>
+      </div>
+
+      <div class="squares column">
+        <div class="square">1</div>
+        <div class="square">2</div>
+        <div class="square">3</div>
+      </div>
+
+      <div class="squares column-reverse">
+        <div class="square">1</div>
+        <div class="square">2</div>
+        <div class="square">3</div>
+      </div>
+
+      <div class="squares column column-centering">
+        <div class="square">1</div>
+        <div class="square">2</div>
+        <div class="square">3</div>
+      </div>
+
+      <div class="squares adaptive">
+        <div class="square">1</div>
+        <div class="square">2</div>
+        <div class="square">3</div>
+        <div class="square">4</div>
+        <div class="square">5</div>
+        <div class="square">6</div>
+      </div>
+
+      <div class="squares justify-content">
+        <div class="square">1</div>
+        <div class="square">2</div>
+        <div class="square">3</div>
+        <div class="square">4</div>
+        <div class="square">5</div>
+        <div class="square">6</div>
+      </div>
+    </div>
+
+    <header>
+      <img
+        src="data:image/jpeg;base64,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"
+      />
+      <div class="header-content-wrapper">
+        <nav>
+          <a href="#">Home</a>
+          <a href="#">Contacts</a>
+          <a href="#">Help</a>
+        </nav>
+        <div class="buttons-wrapper">
+          <button>Log in</button>
+          <button>Sign Up</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="cards-wrapper">
+      <div class="card">
+        <img />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus
+          accusantium, eius minus ea quisquam, ratione facilis quo velit neque
+          est enim repellendus quis, nostrum suscipit soluta architecto amet
+          fugit maiores!
+        </p>
+        <button>Button</button>
+      </div>
+      <div class="card">
+        <img />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus
+          accusantium, eius minus ea quisquam, ratione facilis quo velit neque
+          est enim repellendus quis, nostrum suscipit soluta architecto amet
+          fugit maiores!
+        </p>
+        <button>Button</button>
+      </div>
+      <div class="card">
+        <img />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus
+          accusantium, eius minus ea quisquam, ratione facilis quo velit neque
+          est enim repellendus quis, nostrum suscipit soluta architecto amet
+          fugit maiores!
+        </p>
+        <button>Button</button>
+      </div>
+    </div>
+  </body>
+</html>
