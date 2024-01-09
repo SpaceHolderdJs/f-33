@@ -1,0 +1,15 @@
+/* .btn-info {
+    background: darkblue;
+    color: white;
+}
+
+.btn-info:hover, .btn-info:active {
+    background: darkblue;
+    color: white;
+} */
+
+.toast {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
