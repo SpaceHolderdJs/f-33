@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <h1>Shadows</h1>
+
+    <div class="d-flex w-50 flex-column">
+      <div class="shadow-sm p-3 m-3">Small shadow</div>
+      <div class="shadow p-3 m-3">Regular shadow</div>
+      <div class="shadow-lg p-3 m-3">Regular shadow</div>
+    </div>
+
+    <div class="d-flex w-50 flex-column">
+      <div class="border p-3 m-3">Regular border</div>
+      <div class="border-end p-3 m-3">Left border</div>
+      <div class="border-start p-3 m-3">Right border</div>
+      <div class="border-bottom p-3 m-3">Bottom border</div>
+      <div class="border-top p-3 m-3">Top border</div>
+
+      <div class="border border-primary p-3 m-3">Colored border</div>
+      <div class="border border-warning p-3 m-3">Colored border</div>
+    </div>
+
+    <div class="d-flex w-50 flex-column">
+      <div
+        class="w-100 d-flex justify-content-center align-items-center p-3 m-3 gap-5"
+      >
+        <p>Hello 1</p>
+        <p>Hello 2</p>
+        <p>Hello 3</p>
+      </div>
+
+      <div
+        class="w-100 p-3 m-3 d-flex flex-column align-items-center justify-content-center gap-5"
+      >
+        <p class="m-0">Hello 1</p>
+        <p class="m-0">Hello 2</p>
+        <p class="m-0">Hello 3</p>
+      </div>
+    </div>
+
+    <div id="goods" class="w-50 d-flex flex-column align-items-center gap-3">
+
+    </div>
+
+    <nav class="w-50 d-flex justify-content-center">
+      <ul id="pagination" class="pagination d-flex">
+        <li id="pagination-prev" class="page-item">
+          <span class="page-link">Prev</span>
+        </li>
+        <li class="page-item pagination-number">
+          <span class="page-link">1</span>
+        </li>
+        <li class="page-item pagination-number">
+          <span class="page-link">2</span>
+        </li>
+        <li class="page-item pagination-number">
+          <span class="page-link">3</span>
+        </li>
+        <li id="pagination-next" class="page-item">
+          <span class="page-link">Next</span>
+        </li>
+      </ul>
+    </nav>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./goods.js"></script>
+  </body>
+</html>
