@@ -64,18 +64,77 @@ const goods = [
       "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
     price: "11.000$",
   },
+  {
+    title: "Car10",
+    text: "Some text about car 10",
+    image:
+      "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
+    price: "11.000$",
+  },
+  {
+    title: "Car11",
+    text: "Some text about car 10",
+    image:
+      "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
+    price: "11.000$",
+  },
+  {
+    title: "Car12",
+    text: "Some text about car 10",
+    image:
+      "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
+    price: "11.000$",
+  },
+  {
+    title: "Car11",
+    text: "Some text about car 10",
+    image:
+      "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
+    price: "11.000$",
+  },
+  {
+    title: "Car11",
+    text: "Some text about car 10",
+    image:
+      "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
+    price: "11.000$",
+  },
+  {
+    title: "Car11",
+    text: "Some text about car 10",
+    image:
+      "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
+    price: "11.000$",
+  },
+  {
+    title: "Car11",
+    text: "Some text about car 10",
+    image:
+      "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
+    price: "11.000$",
+  },
+  {
+    title: "Car11",
+    text: "Some text about car 10",
+    image:
+      "https://img.freepik.com/premium-photo/photo-luxury-car-evening-nature-road_763111-23618.jpg",
+    price: "11.000$",
+  },
 ];
+
+const pagesQuantity =
+  goods.length % 3 ? Math.ceil(goods.length / 3) : goods.length / 3;
 
 const goodsContainer = document.getElementById("goods");
 
 const paginationPrev = document.getElementById("pagination-prev");
 const paginationNext = document.getElementById("pagination-next");
-const paginationButtons = [
-  ...document.getElementsByClassName("pagination-number"),
-];
+
+const paginationRenderItem = document.getElementById("pagination-render-items");
 
 const pagination = {
   currentPage: 1,
+  paginationButtons: [],
   currentElements: goods.slice(0, 3),
   changePage: function (newPageNumber) {
     this.currentPage = newPageNumber;
@@ -85,7 +144,33 @@ const pagination = {
       this.currentPage * 3
     );
 
+    this.paginationButtons.forEach((button) =>
+      button.classList.remove("active")
+    );
+    this.paginationButtons[this.currentPage - 1].classList.add("active");
+
     this.renderPageElements();
+  },
+  renderPaginationButtons: function (pagesQuantity) {
+    paginationRenderItem.innerHTML = "";
+
+    for (let i = 0; i < pagesQuantity; i++) {
+      paginationRenderItem.innerHTML += `
+      <li class="page-item pagination-number ${i === 0 ? "active" : ""}">
+        <span class="page-link">${i + 1}</span>
+      </li>
+      `;
+    }
+
+    this.paginationButtons = [
+      ...document.getElementsByClassName("pagination-number"),
+    ];
+
+    this.paginationButtons.forEach((button, i) => {
+      button.onclick = () => {
+        pagination.changePage(i + 1);
+      };
+    });
   },
   renderPageElements: function () {
     // clean up prev elements
@@ -115,9 +200,25 @@ const pagination = {
 };
 
 pagination.renderPageElements();
+pagination.renderPaginationButtons(pagesQuantity);
 
-paginationButtons.forEach((button, i) => {
-  button.onclick = () => {
-    pagination.changePage(i + 1);
-  };
-});
+paginationPrev.onclick = () => {
+  const { currentPage, changePage } = pagination;
+
+  // borders of lowest values (currentPage)
+  pagination.currentPage = currentPage - 1 < 1 ? 1 : currentPage - 1;
+
+  changePage(pagination.currentPage);
+};
+
+paginationNext.onclick = () => {
+  const { currentPage, paginationButtons } = pagination;
+
+  // borders of greater values (currentPage)
+  pagination.currentPage =
+    currentPage + 1 > paginationButtons.length
+      ? paginationButtons.length
+      : currentPage + 1;
+
+  pagination.changePage(pagination.currentPage);
+};
