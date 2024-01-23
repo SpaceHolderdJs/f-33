@@ -1,0 +1,41 @@
+.nav-wrapper {
+    padding: 0 10px;
+}
+
+.collection .collection-item {
+    padding: 20px 30px;
+}
+
+.collection .collection-item.active {
+    background: #26c6da;
+}
+
+.slider-cars {
+    height: 700px;
+}
+
+.slider-cars .carousel-item {
+    width: max-content;
+    height: max-content;
+}
+
+.slider-cars .carousel-item>img {
+    width: 400px;
+    height: 650px;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: 0.3s;
+}
+
+.slider-cars .carousel-item.active>img {
+    filter: blur(0px) grayscale(0%);
+}
+
+.slider-cars .indicators {
+    bottom: 10%;
+}
+
+.slider-cars .indicators .indicator-item {
+    width: 15px;
+    height: 15px;
+}
