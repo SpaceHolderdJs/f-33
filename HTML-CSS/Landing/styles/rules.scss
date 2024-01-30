@@ -1,0 +1,160 @@
+// COLORS
+$white: #fff;
+$black: #000;
+$orange: #dd8737;
+$dark-red: #900000;
+$light-blue: #9fd5ef;
+$grey: #1e1e1e0b;
+
+@mixin text-decoration($color) {
+  width: 72px;
+  height: 2px;
+  background: $color;
+}
+
+@mixin card($image-url) {
+  width: 70%;
+  min-height: 720px;
+  display: flex;
+  align-items: center;
+  gap: 100px;
+
+  article {
+    width: 60%;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 27px;
+
+    .number-decoration {
+      font-size: 240px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 240px;
+      color: $grey;
+
+      position: absolute;
+      top: -25%;
+      left: -25%;
+    }
+
+    .label {
+      color: $dark-red;
+      text-transform: uppercase;
+
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      .text-decoration {
+        @include text-decoration($dark-red);
+      }
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 64px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    p {
+      margin: 0;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 32px;
+    }
+
+    .read-more {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 32px;
+      color: $dark-red;
+    }
+  }
+
+  .card-img {
+    width: 40%;
+    height: 720px;
+    background: url($image-url);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: $light-blue;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-section {
+  color: $white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 120vh;
+
+  background: url(../assets/hero-bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  .hero-text {
+    width: 60%;
+    margin-top: 200px;
+
+    .label {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      color: $orange;
+
+      .text-decoration {
+        @include text-decoration($orange);
+      }
+    }
+
+    h1 {
+      margin: 0;
+      margin-top: 32px;
+
+      font-size: 88px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 100px;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.fade {
+  width: 100%;
+  height: 40vh;
+  transform: translateY(-35vh);
+  background: linear-gradient(
+    180deg,
+    rgba(11, 29, 38, 0) 0%,
+    $light-blue 61.38%
+  );
+}
+
+.landing-card {
+  @include card("../assets/card-1.svg");
+}

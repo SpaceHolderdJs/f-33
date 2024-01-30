@@ -1,0 +1,31 @@
+@use "./rules.scss";
+
+header {
+  nav {
+    background: transparent;
+    box-shadow: none;
+
+    .nav-wrapper {
+      width: calc(100vw - 20px);
+      height: 30px;
+      padding: 60px 80px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 32px;
+      }
+
+      .account-link {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+    }
+  }
+}
