@@ -191,6 +191,12 @@ main {
     rgba(11, 29, 38, 0) 0%,
     $light-blue 61.38%
   );
+
+  @media (max-height: 600px) {
+    display: none;
+
+    @include text-decoration($orange);
+  }
 }
 
 .cards-wrapper {

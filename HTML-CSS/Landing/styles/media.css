@@ -84,14 +84,6 @@ main {
   transform: translateY(-35vh);
   background: linear-gradient(180deg, rgba(11, 29, 38, 0) 0%, #9fd5ef 61.38%);
 }
-@media (max-height: 600px) {
-  .fade {
-    display: none;
-    width: 72px;
-    height: 2px;
-    background: #dd8737;
-  }
-}
 
 .cards-wrapper {
   width: 100%;
@@ -308,4 +300,21 @@ main {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+}
+
+@media (max-width: 1000px) {
+  body {
+    background: #dd8737;
+  }
+}
+@media (max-width: 500px) {
+  body {
+    background: #900000;
+  }
+  body * {
+    color: white;
+  }
+  body .fade {
+    background: #900000;
+  }
 }

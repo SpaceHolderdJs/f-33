@@ -1,0 +1,30 @@
+@use "./rules.scss";
+
+$mobile: 500px;
+$tablet: 1000px;
+$desktop: 1100px;
+$big-screen: 2000px;
+
+@media (max-width: $tablet) {
+    body {
+        background: rules.$orange;
+    }
+}
+
+@media (max-width: $mobile) {
+  body {
+    background: rules.$dark-red;
+
+    * {
+        color: white;
+    }
+
+    .fade {
+      background: rules.$dark-red;
+    }
+  }
+
+  main {
+  }
+}
+
