@@ -96,6 +96,8 @@ heightInput.oninput = (event) => {
   checkbox.type = "checkbox";
 
   checkbox.onchange = (event) => {
+    console.log(event.target.checked, "!!!");
+
     if (event.target.checked) {
       graph1.options.renderColumns.push(field);
     } else {
@@ -113,3 +115,46 @@ heightInput.oninput = (event) => {
   form.appendChild(span);
   form.appendChild(checkbox);
 });
+
+const dt = { title: "Microsoft", value: 300, x: 150, y: 100 };
+
+// const dataForm = document.getElementById("create-graph-data");
+// dataForm.onsubmit = (event) => event.preventDefault();
+
+const createDataForm = {
+  titleInput: document.getElementById("title-input"),
+  valueInput: document.getElementById("value-input"),
+  xInput: document.getElementById("x-input"),
+  yInput: document.getElementById("y-input"),
+
+  button: document.getElementById("create-graph-data-button"),
+};
+
+createDataForm.button.onclick = (event) => {
+  const { titleInput, valueInput, xInput, yInput } = createDataForm;
+
+  const newGraphData = {
+    title: titleInput.value,
+    value: +valueInput.value,
+    x: +xInput.value,
+    y: +yInput.value,
+  };
+
+  const { title, value, x, y } = newGraphData;
+
+  if (!title || !value || !x || !y) {
+    return alert("Please fill all the form fields");
+  }
+
+  graph1.data.push(newGraphData);
+  console.log(graph1.data, "data");
+
+  graph1.sort().render();
+
+  // clean up the fields
+  for (const key in createDataForm) {
+    if (createDataForm[key].value) {
+      createDataForm[key].value = "";
+    }
+  }
+};
