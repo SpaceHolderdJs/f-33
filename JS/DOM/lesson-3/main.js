@@ -97,37 +97,93 @@ class CustomHTMLElement {
   }
 }
 
-const customElement = new CustomHTMLElement(
-  "p",
-  {
-    parent: document.body,
-    textContent: "This is my custom p",
-    classList: ["paragraph"],
-  },
-  {
-    click: [onClickHandler, onClickHandler2],
+class CustomInputElement extends CustomHTMLElement {
+  constructor(tag, parameters, events) {
+    super(tag, parameters, events);
+
+    const {
+      placeholder = "",
+      type = "text",
+      value = "",
+      min = 0,
+      max = 10,
+      step = 1,
+    } = parameters;
+
+    this.placeholder = placeholder;
+    this.type = type;
+
+    this.value = value;
+    this.element.value = value;
+
+    this.element.placeholder = placeholder;
+    this.element.type = type;
+
+    if (type === "range") {
+      this.min = min;
+      this.max = max;
+      this.step = step;
+
+      this.element.min = min;
+      this.element.max = max;
+      this.element.step = step;
+    }
   }
-);
+}
+
+// const customElement = new CustomHTMLElement(
+//   "p",
+//   {
+//     parent: document.body,
+//     textContent: "This is my custom p",
+//     classList: ["paragraph"],
+//   },
+//   {
+//     click: [onClickHandler, onClickHandler2],
+//   }
+// );
 
 const customFormElement = new CustomHTMLElement(
   "form",
   {
-    parent: document.body,
+    parent: document.querySelector("#form-wrapper"),
+    classList: ["login-form"],
     children: [
-      document.createElement("input"),
-      document.createElement("input"),
-      document.createElement("button"),
-      new CustomHTMLElement(
-        "h3",
-        { textContent: "Hello" },
-        { click: () => console.log("Hello") }
+      new CustomHTMLElement("h1", {
+        textContent: "Log in",
+      }),
+      new CustomInputElement("input", {
+        placeholder: "Email",
+        value: "email@gmail.com",
+      }),
+      new CustomInputElement("input", {
+        placeholder: "Password",
+        type: "password",
+      }),
+      new CustomInputElement("input", { type: "color" }),
+      new CustomInputElement(
+        "input",
+        {
+          type: "range",
+          min: 0,
+          max: 100,
+          step: 0.5,
+        },
+        {
+          input: (event) => {
+            const h1 = document.querySelector("h1");
+            h1.textContent = event.target.value;
+            console.log(event.target.value, "input");
+          },
+          change: (event) => {
+            const h1 = document.querySelector("h1");
+            h1.textContent = "Log in";
+            console.log(event.target.value, "change");
+          },
+        }
       ),
+      new CustomHTMLElement("button", { textContent: "Login" }),
     ],
-    //     children: `
-    //     <input type="email" name="email" />
-    //     <input type="password" />
-    //     <button type="submit">Submit</button>
-    //   `,
   },
   {
     submit: (event) => {
@@ -136,3 +192,6 @@ const customFormElement = new CustomHTMLElement(
     },
   }
 );
+
+customFormElement.children.push(`<p>Hello</p>`);
+customFormElement.initChilds();
