@@ -31,4 +31,22 @@ form * {
     padding: 10px;
     border-radius: 15px;
     border: 2px solid darkblue;
+
+    transition: 0.3s;
+}
+
+.todo-item-done {
+    border: 2px solid grey;
+    opacity: 0.5;
+}
+
+.todo-item-done p {
+    text-decoration: line-through;
+}
+
+#todos-count {
+    width: 90%;
+    text-align: right;
+    font-size: 25px;
+    font-weight: 600;
 }

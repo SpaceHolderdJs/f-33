@@ -68,3 +68,35 @@ button.onclick = () => {
 
   alert("Login is done");
 };
+
+sessionStorage.setItem("hello-session-storage", "value");
+// serialization
+sessionStorage.setItem("key", JSON.stringify({ a: 10 }));
+
+const value = sessionStorage.getItem("key");
+// de-serialization
+console.log(JSON.parse(value));
+
+const obj = {
+  a: 10,
+  b: { direction: 10 },
+  c: { x: 10, y: { value: 0 } },
+};
+
+// not deep copy
+const copy = { ...obj };
+
+// obj.a = 100000;
+// obj.b.direction = 100000;
+
+console.log(copy, "copy");
+
+// old way
+// const deepCopy = JSON.parse(JSON.stringify(obj));
+
+// new way
+const deepCopy = structuredClone(obj);
+
+obj.b.direction = 100000;
+
+console.log(deepCopy, "deepCopy");

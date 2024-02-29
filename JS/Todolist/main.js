@@ -1,4 +1,5 @@
 const todosWrapper = document.querySelector("#todos-wrapper");
+const todosCount = document.querySelector("#todos-count");
 
 class TodoApplication {
   constructor(todos) {
@@ -6,18 +7,62 @@ class TodoApplication {
 
     localStorage.setItem("todos", JSON.stringify(todos));
 
+    this.countTodos();
+    this.sortTodos();
     this.renderTodos(todos);
   }
 
-  addTodo(todo) {
-    this.todos.push(todo);
+  countTodos() {
+    const counted = this.todos.reduce(
+      (acc, todo) => {
+        todo.isDone ? acc.done++ : acc.notDone++;
+        return acc;
+      },
+      { done: 0, notDone: 0 }
+    );
+
+    todosCount.textContent = `${counted.done} / ${this.todos.length}`;
+    // Завдання: порахуйте зроблені та не зроблені завдання
+  }
+
+  sortTodos() {
+    this.todos = this.todos.sort((t1, t2) => (t1.isDone ? 1 : -1));
     this.renderTodos(this.todos);
 
     localStorage.setItem("todos", JSON.stringify(this.todos));
   }
 
+  addTodo(todo) {
+    this.todos.push(todo);
+    this.renderTodos(this.todos);
+    this.countTodos();
+
+    localStorage.setItem("todos", JSON.stringify(this.todos));
+  }
+
+  updateTodo(todoToUpdate) {
+    this.todos = this.todos.map((todo) =>
+      todo.id === todoToUpdate.id ? todoToUpdate : todo
+    );
+
+    this.countTodos();
+    this.sortTodos();
+    this.renderTodos(this.todos);
+
+    localStorage.setItem("todos", JSON.stringify(this.todos));
+    // another way
+    // const index = this.todos.findIndex((todo) => todo.id === todoToUpdate.id);
+    // this.todos[index] = todoToUpdate;
+  }
+
   removeTodo(id, text) {
-    // H/W - remove the TODO and re-render the list
+    // H/W - remove the TODO and re-render the list'
+    this.todos = this.todos.filter((todo) => todo.title !== text);
+
+    this.renderTodos(this.todos);
+    this.countTodos();
+
+    localStorage.setItem("todos", JSON.stringify(this.todos));
   }
 
   renderTodos(todos) {
@@ -27,14 +72,18 @@ class TodoApplication {
       const { id, title, isDone } = todo;
 
       const wrapper = document.createElement("div");
-      wrapper.className = "todo-item";
+      wrapper.classList.add("todo-item");
+
+      if (isDone) {
+        wrapper.classList.add("todo-item-done");
+      }
 
       // checkbox input
       const check = document.createElement("input");
       check.type = "checkbox";
       check.checked = isDone;
-      check.onchange = () => {
-        console.log("Check");
+      check.onchange = (event) => {
+        this.updateTodo({ id, title, isDone: event.target.checked });
       };
       wrapper.appendChild(check);
 
@@ -47,7 +96,7 @@ class TodoApplication {
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "Delete";
       deleteButton.onclick = () => {
-        console.log("Delete");
+        this.removeTodo(id, title);
       };
       wrapper.appendChild(deleteButton);
 
@@ -72,7 +121,9 @@ class Todo {
   }
 }
 
-const APPLICATION = new TodoApplication([new Todo(0, "Feed the cat", false)]);
+const todosFromLS = JSON.parse(localStorage.getItem("todos")) || [];
+
+const APPLICATION = new TodoApplication(todosFromLS);
 
 const createTodoForm = document.querySelector("#create-todo-form");
 const todoInput = document.querySelector("#todo-title");
