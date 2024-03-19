@@ -28,6 +28,7 @@ class Cart {
   constructor(cartElements = []) {
     this.cartElements = cartElements;
     this.view = document.querySelector("#cart-items");
+    this.totalPriceButton = document.querySelector("#buy-all-btn");
 
     this.getInitialCart().then(() => this.render(this.view));
   }
@@ -44,14 +45,40 @@ class Cart {
     return initialCart;
   }
 
+  calculateTotalPrice() {
+    const finalPrice = this.cartElements.reduce((acc, item) => {
+      return acc + item.itemData.price * item.quantity;
+    }, 0);
+
+    return finalPrice.toFixed(2);
+  }
+
+  calculateItemQuantity(item) {
+    const cartItem = this.cartElements.find(
+      (currentCartItem) => currentCartItem.itemData.id === item.itemData.id
+    );
+
+    return !cartItem ? 0 : cartItem.quantity;
+  }
+
   async add(item) {
-    this.cartElements.push(item);
+    const currentItemQuantity = this.calculateItemQuantity(item);
+    item.quantity = currentItemQuantity ? currentItemQuantity + 1 : 1;
+
+    if (item.quantity === 1) {
+      this.cartElements.push(item);
+    } else {
+      const cartElement = this.cartElements.find(
+        (cartItem) => cartItem.itemData.id === item.itemData.id
+      );
+      cartElement.quantity = item.quantity;
+    }
 
     const response = await cartApi.patch("", null, {
       userId: 1,
       products: this.cartElements.map((item) => ({
         productId: item.itemData.id,
-        quantity: 1,
+        quantity: item.quantity,
       })),
     });
 
@@ -62,15 +89,26 @@ class Cart {
   }
 
   async remove(item) {
-    this.cartElements = this.cartElements.filter(
-      (cartItem) => cartItem.itemData.id !== item.itemData.id
-    );
+    const currentItemQuantity = this.calculateItemQuantity(item);
+    item.quantity = currentItemQuantity === 1 ? 0 : currentItemQuantity - 1;
+
+    if (item.quantity === 0) {
+      this.cartElements = this.cartElements.filter(
+        (cartItem) => cartItem.itemData.id !== item.itemData.id
+      );
+    } else {
+      const cartElement = this.cartElements.find(
+        (cartItem) => cartItem.itemData.id === item.itemData.id
+      );
+
+      cartElement.quantity = item.quantity;
+    }
 
     const response = await cartApi.patch("", null, {
       userId: 1,
       products: this.cartElements.map((item) => ({
         productId: item.id,
-        quantity: 1,
+        quantity: item.quantity,
       })),
     });
 
@@ -80,7 +118,26 @@ class Cart {
     console.log(this.cartElements);
   }
 
+  async removeAll(item) {
+    this.cartElements = this.cartElements.filter(
+      (cartItem) => cartItem.itemData.id !== item.itemData.id
+    );
+
+    const response = await cartApi.patch("", null, {
+      userId: 1,
+      products: this.cartElements.map((item) => ({
+        productId: item.itemData.id,
+        quantity: 0,
+      })),
+    });
+    console.log(response, "response");
+
+    this.render(this.view);
+  }
+
   render(parent) {
+    this.totalPriceButton.textContent = `Buy all for: ${this.calculateTotalPrice()} $`;
+
     parent.innerHTML = "";
 
     this.cartElements.forEach((item) => {
@@ -121,6 +178,7 @@ class Item {
     category: "",
     description: "",
     image: "",
+    price: 0,
     rating: { rate: 0, count: 0 },
   };
 
@@ -134,9 +192,6 @@ class Item {
       (cartElement) => cartElement.itemData.id === this.itemData.id
     );
 
-    console.log(cart.cartElements, "cartElements");
-    console.log(isAddedToCart, "isAddedToCart");
-
     parent.innerHTML += `
     <div class="item-card">
         <img src=${this.itemData.image} />
@@ -146,15 +201,27 @@ class Item {
             <p>${this.itemData.category}</p>
             <p>${this.itemData.rating.rate}</p>
         </article>
-        ${this.quantity ? `<h4>Quantity: ${this.quantity}</h4>` : ""}
-        // HW: add the price based on quantity
+        ${
+          this.quantity
+            ? `<h4>Quantity: ${this.quantity}</h4>
+              <h4>Price: ${this.itemData.price * this.quantity} $</h4>
+              `
+            : `<h4>Price: ${this.itemData.price} $</h4>`
+        }
         ${
           isAddedToCart
-            ? `<button 
-            id="btn-cart-${this.itemData.id}"
-            class="add-to-cart-btn" 
-            data-itemId="${this.itemData.id}">Remove from cart
-          </button>`
+            ? `<div class="buttons-wrapper">
+                <button 
+                  id="btn-cart-${this.itemData.id}" 
+                  class="add-to-cart-btn remove-button" 
+                  data-itemId="${this.itemData.id}">Remove one
+                </button>
+                <button 
+                  id="btn-cart-${this.itemData.id}-remove-all"
+                  class="remove-all-button"
+                  data-itemId="${this.itemData.id}"
+                >Remove all items</button>
+              </div>`
             : `<button 
             id="btn-catalog-${this.itemData.id}"
             class="add-to-cart-btn" 
@@ -174,12 +241,20 @@ class Item {
         `#btn-cart-${this.itemData.id}`
       );
 
+      const removeAllFromCartButton = document.querySelector(
+        `#btn-cart-${this.itemData.id}-remove-all`
+      );
+
       catalogButton.onclick = () => {
         cart.add(this);
       };
 
       cartButton.onclick = () => {
         cart.remove(this);
+      };
+
+      removeAllFromCartButton.onclick = () => {
+        cart.removeAll(this);
       };
     });
   }
