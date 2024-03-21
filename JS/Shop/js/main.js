@@ -29,6 +29,7 @@ class Cart {
     this.cartElements = cartElements;
     this.view = document.querySelector("#cart-items");
     this.totalPriceButton = document.querySelector("#buy-all-btn");
+    this.cartElementsCount = document.querySelector("#cart-count");
 
     this.getInitialCart().then(() => this.render(this.view));
   }
@@ -43,6 +44,12 @@ class Cart {
     });
 
     return initialCart;
+  }
+
+  calculateTotalElementsQuantity() {
+    return this.cartElements.reduce((acc, item) => {
+      return acc + item.quantity;
+    }, 0);
   }
 
   calculateTotalPrice() {
@@ -137,6 +144,7 @@ class Cart {
 
   render(parent) {
     this.totalPriceButton.textContent = `Buy all for: ${this.calculateTotalPrice()} $`;
+    this.cartElementsCount.textContent = this.calculateTotalElementsQuantity();
 
     parent.innerHTML = "";
 

@@ -18,6 +18,27 @@ header {
     color: white;
 }
 
+header .cart-wrapper {
+    position: relative;
+}
+
+header .cart-wrapper #cart-count {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    right: -15px;
+    top: -5px;
+    background: darkred;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    padding: 3px;
+}
+
 header a {
     font-size: 30px;
     color: white;
