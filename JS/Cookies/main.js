@@ -103,3 +103,33 @@ cookieClass.addCookie("cookie-with-expires", "0000", {
 // Cookies.remove("hello-from-library");
 
 // console.log(Cookies.get("hello-from-library"));
+
+// Usage of cookies (common)
+
+// 1. JWT authorization
+// https://jwt.io/introduction
+// site <- cookie -> server
+cookieClass.addCookie("access_token", "Jhdquei1u2182188wu812812718");
+cookieClass.addCookie("refresh_token", "Jwsjaksjakjskasjakjsaksjkasja11");
+
+// 2. Additional data (limit=100, email=email@gmail.com)
+
+// 3. Marking
+const requestHashedData = cookieClass.getCookie("data");
+
+if (requestHashedData) {
+  console.log("Invalid request");
+}
+
+document.cookie = "email=email@gmail.com;";
+fetch("https://jsonplaceholder.typicode.com/todos", {
+  method: "POST",
+  body: JSON.stringify({ date: new Date() }),
+})
+  .then((data) => {
+    console.log(data.headers, "headers");
+    const email = cookieClass.getCookie("email");
+    const ga = cookieClass.getCookie("_ga");
+    console.log(ga, "GA");
+  })
+  .catch(() => {});
