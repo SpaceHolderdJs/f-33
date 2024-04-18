@@ -54,6 +54,10 @@ const currentSongElement = document.querySelector("#current-song-name");
 
 const songsCardsWrapper = document.querySelector(".music-cards-wrapper");
 
+// General data
+
+let songs = [];
+
 // API
 
 class API {
@@ -78,7 +82,7 @@ class API {
       headers: this.options.headers,
     });
 
-    console.log(response);
+    songs = response.data.data;
 
     return response.data;
   }
@@ -120,19 +124,13 @@ class Views {
     audioButton.textContent = "Play!";
 
     audioButton.onclick = () => {
-      if (audio.src === songData.preview) {
-        audio.src = "";
-        audio.pause();
-        audioButton.textContent = "Play!";
-      } else {
-        audio.src = songData.preview;
-        audio.load();
-        audio.play();
+      audio.src = songData.preview;
+      audio.load();
 
-        views.updateCurrentSongName(songData);
+      Player.controlls.play.classList.replace("fa-play", "fa-pause");
+      audio.play();
 
-        audioButton.textContent = "Stop!";
-      }
+      views.updateCurrentSongName(songData);
     };
 
     cardWrapper.appendChild(audioButton);
@@ -150,8 +148,30 @@ class Views {
 
 const views = new Views();
 
+class SearchHistory {
+  getHistory() {
+    return JSON.parse(localStorage.getItem("history") || "[]");
+  }
+
+  addToHistory(request) {
+    const history = this.getHistory();
+    history.push(request);
+
+    const newHistory = Array.from(new Set(history));
+    localStorage.setItem("history", JSON.stringify(newHistory));
+  }
+}
+
+// HW:
+// Додати відображення елементів історії під пошуком
+// натиснувши на елемент історії ви маєте одразу шукати виконавця
+
+const searchHistory = new SearchHistory();
+
 async function renderSongsCards() {
   const searchValue = searchInput.value;
+
+  searchHistory.addToHistory(searchInput.value);
 
   const songsData = await musicAPI.searchSongsByArtist(searchValue);
 
@@ -166,13 +186,107 @@ async function renderSongsCards() {
 
 searchButton.onclick = renderSongsCards;
 
+function normalizeTimeValue(timeValue) {
+  return timeValue.length === 2 ? timeValue : `0${timeValue}`;
+}
+
 function getSongDuration(s) {
   const date = new Date();
   date.setHours(0, 0, 0, 0);
   date.setSeconds(s);
 
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+  const minutes = `${date.getMinutes()}`;
+  const seconds = `${date.getSeconds()}`;
 
-  return `${minutes}:${seconds}`;
+  const normalizedMinutes = normalizeTimeValue(minutes);
+  const normalizedSeconds = normalizeTimeValue(seconds);
+
+  return `${normalizedMinutes}:${normalizedSeconds}`;
 }
+
+// Player
+
+// Player Button
+{
+  /* <i class="fas fa-chevron-left" id="prev-song-button"></i>
+<i class="fas fa-play" id="play-stop-button"></i>
+<i class="fas fa-chevron-right" id="next-song-button"></i> */
+}
+class Player {
+  static controlls = {
+    prev: document.getElementById("prev-song-button"),
+    play: document.getElementById("play-stop-button"),
+    next: document.getElementById("next-song-button"),
+    progress: document.getElementById("player-progress"),
+    progressTimer: document.getElementById("player-progress-time"),
+  };
+
+  constructor(currentSongIndex = 0) {
+    this.currentSongIndex = currentSongIndex;
+
+    Player.controlls.next.onclick = () => {
+      this.nextSong();
+    };
+
+    Player.controlls.prev.onclick = () => {
+      this.prevSong();
+    };
+
+    Player.controlls.play.onclick = () => {
+      if (!audio.src) audio.src = songs[this.currentSongIndex].preview;
+
+      if (!audio.paused) {
+        this.stop();
+      } else {
+        this.play();
+      }
+    };
+
+    Player.controlls.progress.oninput = () => {
+      audio.currentTime = Number(Player.controlls.progress.value);
+    };
+
+    // Player.controlls.progress.onchange = () => {
+    //   console.log("ON Change");
+    // };
+
+    audio.ontimeupdate = () => {
+      Player.controlls.progress.value = audio.currentTime;
+      // Завдання:
+      // Дописати оновлення значення (тексту) у player-progress-time
+      Player.controlls.progressTimer.textContent = getSongDuration(
+        audio.currentTime
+      );
+    };
+  }
+
+  stop() {
+    Player.controlls.play.classList.replace("fa-pause", "fa-play");
+    audio.pause();
+  }
+
+  play() {
+    Player.controlls.play.classList.replace("fa-play", "fa-pause");
+    audio.play();
+  }
+
+  prevSong() {
+    if (songs.length) {
+      Player.controlls.progress.value = 0;
+      this.currentSongIndex -= 1;
+      audio.src = songs[this.currentSongIndex]?.preview || songs[0].preview;
+      this.play();
+    }
+  }
+
+  nextSong() {
+    if (songs.length) {
+      Player.controlls.progress.value = 0;
+      this.currentSongIndex += 1;
+      audio.src = songs[this.currentSongIndex]?.preview || songs[0].preview;
+      this.play();
+    }
+  }
+}
+
+const player = new Player();

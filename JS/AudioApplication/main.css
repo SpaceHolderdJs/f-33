@@ -101,3 +101,30 @@ header .logo {
     padding: 5px;
     margin: 5px;
 }
+
+.player-controlls {
+    width: 100%;
+    height: 70px;
+    padding: 10px;
+    background: black;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+}
+
+.player-controlls .controlls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-controlls .controlls i {
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.player-controlls #player-progress {
+    width: 70%;
+    margin: 20px;
+}
