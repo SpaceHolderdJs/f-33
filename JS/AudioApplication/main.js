@@ -148,17 +148,77 @@ class Views {
 
 const views = new Views();
 
+const historyItemsWrapper = document.querySelector(".history-items-wrapper");
+
 class SearchHistory {
+  constructor() {
+    const historyItems = this.getHistory();
+    this.renderHistoryItems(historyItems);
+  }
+
   getHistory() {
     return JSON.parse(localStorage.getItem("history") || "[]");
   }
 
   addToHistory(request) {
-    const history = this.getHistory();
+    let history = this.getHistory();
+
+    if (history.includes(request)) {
+      history = history.filter((prevRequest) => prevRequest !== request);
+    }
+
     history.push(request);
 
-    const newHistory = Array.from(new Set(history));
-    localStorage.setItem("history", JSON.stringify(newHistory));
+    localStorage.setItem("history", JSON.stringify(history));
+  }
+
+  removeFromHistory(request) {
+    let history = this.getHistory();
+
+    history = history.filter((prevRequest) => prevRequest !== request);
+
+    localStorage.setItem("history", JSON.stringify(history));
+  }
+
+  renderHistoryItems(items, maxItemsCount = 2) {
+    historyItemsWrapper.innerHTML = "";
+
+    items.slice(-maxItemsCount).forEach((item) => {
+      const itemElement = document.createElement("button");
+      itemElement.className = "history-item";
+      itemElement.textContent = item;
+
+      const deleteItemElement = document.createElement("i");
+      deleteItemElement.className = "fas fa-times";
+
+      deleteItemElement.style.color = "red";
+      deleteItemElement.style.marginLeft = "5px";
+
+      deleteItemElement.onclick = (event) => {
+        event.stopPropagation();
+
+        this.removeFromHistory(item);
+        const historyItems = this.getHistory();
+        this.renderHistoryItems(historyItems);
+      };
+
+      itemElement.appendChild(deleteItemElement);
+
+      itemElement.onclick = () => {
+        searchInput.value = item;
+        renderSongsCards();
+      };
+
+      itemElement.addEventListener("click", () => {
+        console.log("2 click");
+
+        setTimeout(() => {
+          console.log("Timeout!");
+        }, 1000);
+      });
+
+      historyItemsWrapper.appendChild(itemElement);
+    });
   }
 }
 
@@ -172,6 +232,8 @@ async function renderSongsCards() {
   const searchValue = searchInput.value;
 
   searchHistory.addToHistory(searchInput.value);
+  const historyItems = searchHistory.getHistory();
+  searchHistory.renderHistoryItems(historyItems);
 
   const songsData = await musicAPI.searchSongsByArtist(searchValue);
 

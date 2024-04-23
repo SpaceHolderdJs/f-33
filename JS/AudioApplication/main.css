@@ -128,3 +128,18 @@ header .logo {
     width: 70%;
     margin: 20px;
 }
+
+.history-items-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    overflow: auto;
+}
+
+.history-items-wrapper .history-item {
+    margin: 5px;
+    font-size: 15px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
