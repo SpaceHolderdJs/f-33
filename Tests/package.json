@@ -1,0 +1,17 @@
+{
+  "name": "tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/faker": "^6.6.9",
+    "@types/jest": "^29.5.12",
+    "faker": "5.5.3",
+    "jest-cli": "^29.7.0"
+  }
+}
