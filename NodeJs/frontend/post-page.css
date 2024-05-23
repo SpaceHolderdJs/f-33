@@ -1,0 +1,12 @@
+body {
+    background: lightgrey;
+}
+
+h3, article {
+    text-align: center;
+}
+
+article {
+    border: 5px dashed black;
+    padding: 10px;
+}

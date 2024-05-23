@@ -1,0 +1,31 @@
+<main>
+  <h1>Hello Angular!</h1>
+  <h3>My project's name: {{ title }}</h3>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero eligendi
+    vero rerum obcaecati non iure id optio tempore error illum possimus modi
+    saepe ullam iste, ex natus, magnam eos eum.
+  </p>
+
+  <h1 *ngIf="isUserAdmin">Admin</h1>
+  <button (click)="setUserAdmin()">Set Admin to: {{ !isUserAdmin }}</button>
+
+  <h3>Name: {{ name }}</h3>
+
+  <div class="names">
+    <div>{{ names[0] }}</div>
+    <div>{{ names[1] }}</div>
+    <div>{{ names[2] }}</div>
+    <div>{{ names[3] }}</div>
+  </div>
+
+  <p>Email: {{ user.email }}</p>
+  <p>Password: {{ user.password }}</p>
+
+  <h3>Counter: {{ counter }}</h3>
+  <button (click)="increase()">+1</button>
+
+  <button (click)="decrease()">-1</button>
+
+  <button (click)="changeUserName()">Click me (change the user name)</button>
+</main>

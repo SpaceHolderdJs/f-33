@@ -39,6 +39,13 @@ app.get("/posts", (req, res) => {
   res.json(data.posts);
 });
 
+app.post("/posts", (req, res) => {
+  const post = req.body;
+  data.posts.push(post);
+
+  res.json(data.posts);
+});
+
 app.listen(port, () => {
   console.log(`Express server is running on port: ${port}`);
 });
