@@ -7,6 +7,12 @@
     saepe ullam iste, ex natus, magnam eos eum.
   </p>
 
+  @if (isUserAdmin) {
+    <h1>Another if user admin</h1>
+  } @else {
+    <h1>Not an admin</h1>
+  }
+
   <h1 *ngIf="isUserAdmin">Admin</h1>
   <button (click)="setUserAdmin()">Set Admin to: {{ !isUserAdmin }}</button>
 
@@ -28,4 +34,6 @@
   <button (click)="decrease()">-1</button>
 
   <button (click)="changeUserName()">Click me (change the user name)</button>
+
+  <app-users></app-users>
 </main>
