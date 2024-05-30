@@ -1,15 +1,6 @@
 <main>
     <h2>Users' list</h2>
-
-    @for (user of users; track user.email) {
-        <!-- move to another component -->
-        <div class="user-card">
-            <img [src]="user.image" [alt]="user.fullname" />
-            <article>
-                <h4>{{ user.fullname }}</h4>
-                <p>{{ user.email }}</p>
-                <span>{{ user.job }}</span>
-            </article>
-        </div>
+    @for (user of usersService.users; track user.email) {
+        <app-users-list-item [user]="user" />
     }
 </main>

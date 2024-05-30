@@ -1,1 +1,14 @@
-<p>users-list-item works!</p>
+@if (user) {
+<div class="user-card">
+    <h1>HELLO</h1>
+    <img [src]="user.image" [alt]="user.fullname" />
+    <article>
+        <h4>{{ user.fullname }}</h4>
+        <p>{{ user.email }}</p>
+        <span>{{ user.job }}</span>
+    </article>
+    <a [routerLink]="user.id">User's profile</a>
+</div>
+}
+
+<router-outlet></router-outlet>
