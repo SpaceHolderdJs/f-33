@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users.service';
+import { UserType } from '../users.types';
 
 @Component({
   selector: 'app-user-profile',
@@ -9,8 +10,16 @@ import { UsersService } from '../users.service';
 export class UserProfileComponent implements OnInit {
   constructor(public usersService: UsersService) { }
 
+  userId: string | undefined;
+  user?: UserType;
+
   ngOnInit() {
-    console.log(window.location.pathname.split('/').at(-1));
-    console.log(this.usersService.users, "users");
+    this.userId = window.location.pathname.split('/').at(-1);
+
+    if (this.userId) {
+      this.user = this.usersService.getOneUser(this.userId);
+    }
+
+    console.log("user:", this.user);
   }
 }

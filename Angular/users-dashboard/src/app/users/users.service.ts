@@ -35,4 +35,16 @@ export class UsersService {
       };
     });
   }
+
+  deleteUser(id: string) {
+    this.users = this.users.filter((user) => user.id !== id);
+  }
+
+  addUser(user: UserType) {
+    this.users = [...this.users, user];
+  }
+
+  getOneUser(id: string) {
+    return this.users.find((user) => user.id === id);
+  }
 }

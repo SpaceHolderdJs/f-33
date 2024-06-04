@@ -8,6 +8,7 @@
         <span>{{ user.job }}</span>
     </article>
     <a [routerLink]="user.id">User's profile</a>
+    <button (click)="usersService.deleteUser(user.id)">Delete this user</button>
 </div>
 }
 

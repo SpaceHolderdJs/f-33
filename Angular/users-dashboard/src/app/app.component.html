@@ -2,7 +2,7 @@
   <h1>Dashboard</h1>
   <nav>
     @for (link of headerLinks; track link.path) {
-     <a [routerLink]="link.path">{{link.path}}</a>
+     <a [routerLink]="link.path">{{link.title}}</a>
     }
   </nav>
 </header>

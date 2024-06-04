@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { UsersModule } from './users/users.module';
-import { routes } from './app.routes';
+import { HeaderRouteType } from './types';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +11,8 @@ import { routes } from './app.routes';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  headerLinks = routes;
+  headerLinks: Array<HeaderRouteType> = [
+    { path: "users", title: "Users list" },
+    { path: "users/form/create", title: "Create User" }
+  ];
 }
