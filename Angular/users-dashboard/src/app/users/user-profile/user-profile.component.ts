@@ -19,7 +19,5 @@ export class UserProfileComponent implements OnInit {
     if (this.userId) {
       this.user = this.usersService.getOneUser(this.userId);
     }
-
-    console.log("user:", this.user);
   }
 }
