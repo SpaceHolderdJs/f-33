@@ -12,6 +12,7 @@
         }
     </article>
     <a [routerLink]="user.id">User's profile</a>
+    <a [routerLink]="getEditUserLink(user.id)">Edit this user</a>
     <button (click)="usersService.deleteUser(user.id)">Delete this user</button>
 </div>
 }

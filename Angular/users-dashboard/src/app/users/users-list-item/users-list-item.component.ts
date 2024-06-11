@@ -26,4 +26,8 @@ export class UsersListItemComponent implements OnInit, OnDestroy, OnChanges {
     console.log(changes['user'].isFirstChange());
   }
 
+  getEditUserLink(userId: string) {
+    return `form/update/${userId}`;
+  }
+
 }
