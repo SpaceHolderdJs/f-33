@@ -19,10 +19,9 @@
   <h3>Name: {{ name }}</h3>
 
   <div class="names">
-    <div>{{ names[0] }}</div>
-    <div>{{ names[1] }}</div>
-    <div>{{ names[2] }}</div>
-    <div>{{ names[3] }}</div>
+    @for(name of names; track name) {
+      <div>{{ name }}</div>
+    }
   </div>
 
   <p>Email: {{ user.email }}</p>
