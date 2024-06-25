@@ -3,6 +3,9 @@ import { Counter } from "./components/Counter";
 import { LoginForm } from "./components/LoginForm";
 import App from "./App";
 import { UserProfile } from "./components/UserProfile";
+import { UsersList } from "./components/UsersList";
+import { users } from "./constants";
+import { Users } from "./components/Users";
 
 export const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -22,4 +25,12 @@ export const router = createBrowserRouter([
       <UserProfile />
     ),
   },
+  {
+    path: "/users-list",
+    element: <UsersList users={users} />
+  },
+  {
+    path: "/users",
+    element: <Users />
+  }
 ]);

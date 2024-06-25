@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { UserProfile } from "./components/UserProfile";
+import { Users } from "./components/Users";
 import "./App.css";
+
 
 
 const App = () => {
@@ -24,6 +26,8 @@ const App = () => {
       ))}
 
       <UserProfile user={user} />
+
+      <Users />
     </div>
   );
 };

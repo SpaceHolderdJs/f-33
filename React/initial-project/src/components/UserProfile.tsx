@@ -1,12 +1,8 @@
-import React, { FC } from "react";
+import { FC } from "react";
+import { UserType } from "../types";
 
 type Props = {
-  user?: {
-    email: string;
-    password: string;
-    name: string;
-    age: number;
-  };
+  user?: UserType;
 };
 
 export const UserProfile: FC<Props> = ({ user }) => {
