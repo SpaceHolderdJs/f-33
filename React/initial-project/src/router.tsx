@@ -6,31 +6,36 @@ import { UserProfile } from "./components/UserProfile";
 import { UsersList } from "./components/UsersList";
 import { users } from "./constants";
 import { Users } from "./components/Users";
+import { UserForm } from "./components/UserForm";
 
 export const router = createBrowserRouter([
   { path: "/", element: <App /> },
   {
-    path: "/counter",
+    path: "counter",
     element: <Counter />,
   },
   {
-    path: "/login",
+    path: "login",
     element: (
       <LoginForm email="default-email@gmai.com" password="default-password" />
     ),
   },
   {
-    path: "/user-profile",
+    path: "user-profile",
     element: (
       <UserProfile />
     ),
   },
   {
-    path: "/users-list",
+    path: "users-list",
     element: <UsersList users={users} />
   },
   {
-    path: "/users",
+    path: "users",
     element: <Users />
+  },
+  {
+    path: "user-create",
+    element: <UserForm />
   }
 ]);
