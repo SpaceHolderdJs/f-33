@@ -6,12 +6,16 @@ import {
   useState,
 } from "react";
 import { APIUserType, UserType } from "../types";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type AppContextType = {
   users: UserType[] | APIUserType[];
   setUsers?: Dispatch<UserType[] | APIUserType[]>;
 
   createUser?: (user: APIUserType | UserType) => APIUserType | UserType;
+  deleteUser?: (user: APIUserType | UserType) => void;
+
+  // HW: Add editUser function   
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -19,19 +23,33 @@ export const AppContext = createContext<AppContextType>({
 });
 
 export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [users, setUsers] = useState<UserType[] | APIUserType[]>([]);
+  const { get, set } = useLocalStorage();
+
+  const [users, setUsers] = useState<UserType[] | APIUserType[]>(
+    get("users") || []
+  );
 
   const createUser = (user: APIUserType | UserType) => {
-    console.log(user, 'user');
-    setUsers([...users, user] as APIUserType[]);
+    const updatedUsers = [...users, user];
+
+    setUsers(updatedUsers as Array<APIUserType>);
+    set("users", updatedUsers);
 
     return user;
   };
 
-  console.log(users, 'users');
+  const deleteUser = (user: APIUserType | UserType) => {
+    // TODO: Add types aligment
+    const updatedUsers = (users as Array<APIUserType>).filter(
+      ({ email }) => email !== user.email
+    );
+
+    setUsers(updatedUsers as Array<APIUserType>);
+    set("users", updatedUsers);
+  };
 
   return (
-    <AppContext.Provider value={{ users, setUsers, createUser }}>
+    <AppContext.Provider value={{ users, setUsers, createUser, deleteUser }}>
       {children}
     </AppContext.Provider>
   );
