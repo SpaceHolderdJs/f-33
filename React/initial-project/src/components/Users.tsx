@@ -6,19 +6,19 @@ import { UserVariationsType } from "../types";
 import { AppContext } from "../contexts/AppContext";
 
 export const Users = () => {
-  const [usersType, setUsersType] = useState<UserVariationsType>("local");
+  const [usersType, setUsersType] = useState<UserVariationsType>("server");
   const userTypes: UserVariationsType[] = ["local", "server"];
 
-  const { users: serverUsers, setUsers } = useContext(AppContext);
+  const { users: serverUsers } = useContext(AppContext);
 
   const changeUserType = (userType: UserVariationsType) =>
     setUsersType(userType);
 
-  useEffect(() => {
-    client.get("/users").then(({ data }) => {
-      // setUsers && setUsers(data);
-    });
-  }, [setUsers]);
+  // useEffect(() => {
+  //   client.get("/users").then(({ data }) => {
+  //     // setUsers && setUsers(data);
+  //   });
+  // }, [setUsers]);
 
   return (
     <div>

@@ -40,4 +40,5 @@ export const router = createBrowserRouter([
     path: "user-create",
     element: <UserForm />,
   },
+  { path: "user-edit/:email", element: <UserForm /> },
 ]);

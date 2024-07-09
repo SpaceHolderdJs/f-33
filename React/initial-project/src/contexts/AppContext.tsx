@@ -5,17 +5,17 @@ import {
   createContext,
   useState,
 } from "react";
-import { APIUserType, UserType } from "../types";
+import { APIUserType } from "../types";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type AppContextType = {
-  users: UserType[] | APIUserType[];
-  setUsers?: Dispatch<UserType[] | APIUserType[]>;
+  users: APIUserType[];
+  setUsers?: Dispatch<APIUserType[]>;
 
-  createUser?: (user: APIUserType | UserType) => APIUserType | UserType;
-  deleteUser?: (user: APIUserType | UserType) => void;
-
-  // HW: Add editUser function   
+  createUser?: (user: APIUserType) => APIUserType;
+  deleteUser?: (user: APIUserType) => void;
+  editUser?: (user: APIUserType) => void;
+  getUser?: (email: string) => APIUserType | undefined;
 };
 
 export const AppContext = createContext<AppContextType>({
@@ -25,11 +25,11 @@ export const AppContext = createContext<AppContextType>({
 export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const { get, set } = useLocalStorage();
 
-  const [users, setUsers] = useState<UserType[] | APIUserType[]>(
+  const [users, setUsers] = useState<APIUserType[]>(
     get("users") || []
   );
 
-  const createUser = (user: APIUserType | UserType) => {
+  const createUser = (user: APIUserType) => {
     const updatedUsers = [...users, user];
 
     setUsers(updatedUsers as Array<APIUserType>);
@@ -38,7 +38,7 @@ export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
     return user;
   };
 
-  const deleteUser = (user: APIUserType | UserType) => {
+  const deleteUser = (user: APIUserType) => {
     // TODO: Add types aligment
     const updatedUsers = (users as Array<APIUserType>).filter(
       ({ email }) => email !== user.email
@@ -48,8 +48,25 @@ export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
     set("users", updatedUsers);
   };
 
+  const editUser = (userData: APIUserType) => {
+    const updatedUsers = users.map((user) =>
+      user.email === userData.email ? userData : user
+    );
+
+    setUsers(updatedUsers as APIUserType[]);
+    set("users", updatedUsers);
+  };
+
+  const getUser = (email: string) => {
+    return users.find(
+      (user: APIUserType) => user.email === email
+    );
+  };
+
   return (
-    <AppContext.Provider value={{ users, setUsers, createUser, deleteUser }}>
+    <AppContext.Provider
+      value={{ users, setUsers, createUser, deleteUser, editUser, getUser }}
+    >
       {children}
     </AppContext.Provider>
   );
