@@ -6,6 +6,7 @@ import { incremented } from './redux/slices/counter';
 import './App.css'
 import { Counter } from './components/Counter';
 import { Users } from './components/Users';
+import { Todos } from './components/Todos';
 
 function App() {
   const counter = useAppSelector((store) => store.counter);
@@ -35,6 +36,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <Todos />
     </>
   )
 }
